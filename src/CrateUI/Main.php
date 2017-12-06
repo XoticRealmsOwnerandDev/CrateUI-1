@@ -2,27 +2,45 @@
 
 namespace CrateUI;
 
-use pocketmine\utils\Config;
-use pocketmine\item\Item;
+use pocketmine\Player;
+use pocketmine\Server;
+
 use pocketmine\utils\TextFormat;
-use pocketmine\level\Level;
-use pocketmine\math\Vector3;
-use pocketmine\inventory\Inventory;
+use pocketmine\utils\Config;
+
+use pocketmine\item\Item;
 use pocketmine\item\enchantment\Enchantment;
+
+use pocketmine\level\Level;
 use pocketmine\level\particle\LavaParticle;
 use pocketmine\level\sound\EndermanTeleportSound;
+
+use pocketmine\math\Vector3;
+
+use pocketmine\inventory\Inventory;
+
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\ConsoleCommandSender;
-use pocketmine\Player;
-use pocketmine\Server;
+
 use pocketmine\plugin\PluginBase;
 
-class Main extends PluginBase{
+use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerQuitEvent;
+use pocketmine\event\server\DataPacketReceiveEvent;
+
+use pocketmine\network\mcpe\protocol\ModalFormResponsePacket;
+
+class Main extends PluginBase implements Listener{
+
+	public $formCount = 0;
+
+	public $forms = [];
 
 	public function onEnable(){
 		$this->saveDefaultConfig();
 		$this->cfg = $this->getConfig();
+		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->getServer()->getCommandMap()->register("getkey", new Commands\getkey());
 		$this->getLogger()->info("§aEnabled.");
 	}
@@ -31,13 +49,67 @@ class Main extends PluginBase{
 	    $this->getLogger()->info("§cDisabled.");
 	}
 
+	public function createCustomForm(callable $function = null) : CustomForm {
+		$this->formCount++;
+		$form = new CustomForm($this->formCount, $function);
+		if($function !== null){
+			$this->forms[$this->formCount] = $form;
+		}
+		return $form;
+	}
+
+	public function createSimpleForm(callable $function = null) : SimpleForm {
+		$this->formCount++;
+		$form = new SimpleForm($this->formCount, $function);
+		if($function !== null){
+			$this->forms[$this->formCount] = $form;
+		}
+		return $form;
+	}
+
+	public function onPacketReceived(DataPacketReceiveEvent $ev) : void {
+		$pk = $ev->getPacket();
+		if($pk instanceof ModalFormResponsePacket){
+			$player = $ev->getPlayer();
+			$formId = $pk->formId;
+			$data = json_decode($pk->formData, true);
+			if(isset($this->forms[$formId])){
+				/** @var Form $form */
+				$form = $this->forms[$formId];
+				if(!$form->isRecipient($player)){
+					return;
+				}
+				$callable = $form->getCallable();
+				if(!is_array($data)){
+					$data = [$data];
+				}
+				if($callable !== null) {
+					$callable($ev->getPlayer(), $data);
+				}
+				unset($this->forms[$formId]);
+				$ev->setCancelled();
+			}
+		}
+	}
+
+	public function onPlayerQuit(PlayerQuitEvent $ev){
+		$player = $ev->getPlayer();
+		/**
+		 * @var int $id
+		 * @var Form $form
+		 */
+		foreach($this->forms as $id => $form){
+			if($form->isRecipient($player)){
+				unset($this->forms[$id]);
+				break;
+			}
+		}
+	}
+
 	public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args): bool{
 	     if($cmd->getName() == "crate"){
 			 if($sender instanceof Player){
-				$api = $this->getServer()->getPluginManager()->getPlugin("FormAPI");
-				if ($api === null || $api->isDisabled()) {
-				}
-				$form = $api->createSimpleForm(function (Player $sender, array $data) {
+				$form = $this->createSimpleForm(function (Player $sender, array $data) {
 					$result = $data[0];
 					if ($result === null) {
 					}
