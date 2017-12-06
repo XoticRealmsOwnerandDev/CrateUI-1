@@ -1,3 +1,7 @@
+# Important Update
+
+- Just added No need FormAPI Plugin You dont need it to work CrateUI Plugin.
+
 # Download
 Click [here](https://poggit.pmmp.io/ci/xXNiceAssasinl0/CrateUI/CrateUI) To download phar.
 
@@ -7,6 +11,8 @@ Click [here](https://poggit.pmmp.io/ci/xXNiceAssasinl0/CrateUI/CrateUI) To downl
 - [ ] Fix all Crates Items
 
 # Finished:
+- [x] No Need FormAPI Plugin to work.
+
 - [x] Title on Open Crate.
 
 - [x] Broadcast Message on open Crate.
