@@ -100,20 +100,20 @@ class Main extends PluginBase{
 									 switch($result){
 							case 1:
 								$inv->addItem(Item::get(265,0,15));
-								$sender->sendMessage("§9Crate> §bYou won 15 IronIngot!");
+								$sender->sendMessage($prefix . " §bYou won 15 IronIngot!");
 								 break;
 							case 2:
 								$inv->addItem(Item::get(264,0,1));
-								$sender->sendMessage("§9Crate> §bYou won 1 diamond!");
+								$sender->sendMessage($prefix . " §bYou won 1 diamond!");
 								 break;
 							case 3:
 									$inv->addItem(Item::get(17,0,20));
-									$sender->sendMessage("§9Crate> §bYou won 20 oak wood!");
+									$sender->sendMessage($prefix . " §bYou won 20 oak wood!");
 								 break;
 									 }
 							}else{
 								$prefix = $this->cfg->get("Prefix");
-								$sender->sendMessage("§9Crate> §fYou don't have §cVote §fKey.");
+								$sender->sendMessage($prefix . " §fYou don't have §cVote §fKey.");
 							}
 						break;
 						case 3:
@@ -137,15 +137,15 @@ class Main extends PluginBase{
 									 switch($result){
 							case 1:
 								$inv->addItem(Item::get(265,0,20));
-								$sender->sendMessage("§9Crate> §bYou won 20 IronIngot!");
+								$sender->sendMessage($prefix . " §bYou won 20 IronIngot!");
 								 break;
 							case 2:
 								$inv->addItem(Item::get(264,0,5));
-								$sender->sendMessage("§9Crate> §bYou won 5 diamonds!");
+								$sender->sendMessage($prefix . " §bYou won 5 diamonds!");
 								 break;
 							case 3:
 									$inv->addItem(Item::get(322,0,1));
-									$sender->sendMessage("§9Crate> §bYou won a Golden Apple!");
+									$sender->sendMessage($prefix . " §bYou won a Golden Apple!");
 								 break;
 							case 4:
 									$i = Item::get(267,0,1);
@@ -153,20 +153,20 @@ class Main extends PluginBase{
 									$e->setLevel(2);
 									$i->addEnchantment($e);
 									$inv->addItem($i);
-									$sender->sendMessage("§9Crate> §bYou won a Enchanted Iron Sword!"); 
+									$sender->sendMessage($prefix . " §bYou won a Enchanted Iron Sword!"); 
 								 break;
 							case 5:
 									   $inv->addItem(Item::get(466,0,1));
-									$sender->sendMessage("§9Crate> §bYou won a Enchanted Golden Apple!");
+									$sender->sendMessage($prefix . " §bYou won a Enchanted Golden Apple!");
 								 break;
 							case 5:
 									$inv->addItem(Item::get(17,0,64));
-									$sender->sendMessage("§9Crate> §bYou won 64 oak wood!");
+									$sender->sendMessage($prefix . " §bYou won 64 oak wood!");
 								 break;
 									 }
 							}else{
 								$prefix = $this->cfg->get("Prefix");
-								$sender->sendMessage("§9Crate> §fYou don't have §6Rare §fKey.");
+								$sender->sendMessage($prefix . " §fYou don't have §6Rare §fKey.");
 							}
 						break;
 						case 4:
@@ -184,9 +184,9 @@ class Main extends PluginBase{
 								$level->addSound(new EndermanTeleportSound($pos1));
 								$level->addParticle(new LavaParticle($pos1));
 								$inv->removeItem(Item::get(131,4,1));
-								$sender->addTitle("§eOpening Crate:", "§5Mythoc!");
+								$sender->addTitle("§eOpening Crate:", "§5Mythic!");
 								$this->getServer()->broadcastMessage($prefix . " §b$name §ajust opened §5Mythic §aCrate!");
-								$result = rand(1,9);
+								$result = rand(1,8);
 									 switch($result){
 							case 1:
 								$inv->addItem(Item::get(266,0,20));
@@ -194,15 +194,15 @@ class Main extends PluginBase{
 								$inv->addItem(Item::get(264,0,20));
 								$inv->addItem(Item::get(351,0,20));
 								$inv->addItem(Item::get(263,0,20));
-								$sender->sendMessage("§9Crate> §bYou won 20 of all ores!");
+								$sender->sendMessage($prefix . " §bYou won 20 of all ores!");
 								 break;
 							case 2:
 								$inv->addItem(Item::get(264,0,30));
-								$sender->sendMessage("§9Crate> §bYou won 30 diamonds!");
+								$sender->sendMessage($prefix . " §bYou won 30 diamonds!");
 								 break;
 							case 3:
 									$inv->addItem(Item::get(322,0,20));
-									$sender->sendMessage("§9Crate> §bYou won 20 Golden Apples!");
+									$sender->sendMessage($prefix . " §bYou won 20 Golden Apples!");
 								 break;
 							case 4:
 									$i = Item::get(276,0,1);
@@ -217,15 +217,15 @@ class Main extends PluginBase{
 									$i->addEnchantment($e2);
 									$i->setCustomName("§6§lMythic§bSword");
 									$inv->addItem($i);
-									$sender->sendMessage("§9Crate> §bYou won a Enchanted §6§lMythic§bSword!"); 
+									$sender->sendMessage($prefix . " §bYou won a Enchanted §6§lMythic§bSword!"); 
 								 break;
 							case 5:
 									   $inv->addItem(Item::get(466,0,15));
-									$sender->sendMessage("§9Crate> §bYou won 15 Enchanted Golden Apple!");
+									$sender->sendMessage($prefix . " §bYou won 15 Enchanted Golden Apple!");
 								 break;
 							case 6:
 									$inv->addItem(Item::get(17,5,64));
-									$sender->sendMessage("§9Crate> §bYou won 64 spruce wood!");
+									$sender->sendMessage($prefix . " §bYou won 64 spruce wood!");
 								 break;
 							case 7:
 									$i = Item::get(276,0,1);
@@ -233,7 +233,7 @@ class Main extends PluginBase{
 									$e->setLevel(5);
 									$i->addEnchantment($e);
 									$inv->addItem($i);
-									$sender->sendMessage("§9Crate> §bYou won a Enchanted Diamond Sword!");
+									$sender->sendMessage($prefix . " §bYou won a Enchanted Diamond Sword!");
 								 break;
 							case 8:
 									$chest = Item::get(311,0,1);
@@ -244,16 +244,12 @@ class Main extends PluginBase{
 									$inv->addItem($chest);
 									$inv->addItem(Item::get(312,0,1));
 									$inv->addItem(Item::get(313,0,1));
-									$sender->sendMessage("§9Crate> §bYou won full set of Diamond Armor with enchanted chestplate!");
+									$sender->sendMessage($prefix . " §bYou won full set of Diamond Armor with enchanted chestplate!");
 								 break;
-							case 9:
-									$inv->addItem(Item::get(388,0,30));
-									$sender->sendMessage("§9Crate> §bYou won 30 crate key!");
-						break;
 									 }
 							}else{
 								$prefix = $this->cfg->get("Prefix");
-								$sender->sendMessage("§9Crate> §fYou don't have §5Mythic §fKey.");
+								$sender->sendMessage(" §fYou don't have §5Mythic §fKey.");
 							}
 						break;
 						case 5:
@@ -273,19 +269,19 @@ class Main extends PluginBase{
 								$inv->removeItem(Item::get(131,5,1));
 								$sender->addTitle("§eOpening Crate:", "§9Legendary!");
 								$this->getServer()->broadcastMessage($prefix . " §b$name §ajust opened §9Legendary §aCrate!");
-								$result = rand(1,9);
+								$result = rand(1,8);
 									 switch($result){
 							case 1:
 								$inv->addItem(Item::get(266,0,20));
-								$sender->sendMessage("§9Crate> §bYou won 20 Gold!");
+								$sender->sendMessage($prefix . " §bYou won 20 Gold!");
 								 break;
 							case 2:
 								$inv->addItem(Item::get(264,0,10));
-								$sender->sendMessage("§9Crate> §bYou won 10 diamonds!");
+								$sender->sendMessage($prefix . " §bYou won 10 diamonds!");
 								 break;
 							case 3:
 									$inv->addItem(Item::get(322,0,2));
-									$sender->sendMessage("§9Crate> §bYou won 2 Golden Apples!");
+									$sender->sendMessage($prefix . " §bYou won 2 Golden Apples!");
 								 break;
 							case 4:
 									$i = Item::get(267,0,1);
@@ -293,15 +289,15 @@ class Main extends PluginBase{
 									$e->setLevel(3);
 									$i->addEnchantment($e);
 									$inv->addItem($i);
-									$sender->sendMessage("§9Crate> §bYou won a Enchanted Iron Sword!"); 
+									$sender->sendMessage($prefix . " §bYou won a Enchanted Iron Sword!"); 
 								 break;
 							case 5:
 									   $inv->addItem(Item::get(466,0,5));
-									$sender->sendMessage("§9Crate> §bYou won 5 Enchanted Golden Apple!");
+									$sender->sendMessage($prefix . " §bYou won 5 Enchanted Golden Apple!");
 								 break;
 							case 6:
 									$inv->addItem(Item::get(17,5,64));
-									$sender->sendMessage("§9Crate> §bYou won 64 spruce wood!");
+									$sender->sendMessage($prefix . " §bYou won 64 spruce wood!");
 								 break;
 							case 7:
 									$i = Item::get(276,0,1);
@@ -309,23 +305,19 @@ class Main extends PluginBase{
 									$e->setLevel(5);
 									$i->addEnchantment($e);
 									$inv->addItem($i);
-									$sender->sendMessage("§9Crate> §bYou won a Enchanted Diamond Sword!");
+									$sender->sendMessage($prefix . " §bYou won a Enchanted Diamond Sword!");
 								 break;
 							case 8:
 									$inv->addItem(Item::get(310,0,1));
 									$inv->addItem(Item::get(311,0,1));
 									$inv->addItem(Item::get(312,0,1));
 									$inv->addItem(Item::get(313,0,1));
-									$sender->sendMessage("§9Crate> §bYou won full set of Diamond Armor!");
+									$sender->sendMessage($prefix . " §bYou won full set of Diamond Armor!");
 								 break;
-							case 9:
-									$inv->addItem(Item::get(388,0,20));
-									$sender->sendMessage("§9Crate> §bYou won 20 crate key!");
-						break;
 									 }
 							}else{
 								$prefix = $this->cfg->get("Prefix");
-								$sender->sendMessage("§9Crate> §fYou don't have §9Legendary §fKey.");
+								$sender->sendMessage($prefix . " §fYou don't have §9Legendary §fKey.");
 							}
 						break;
 					}
