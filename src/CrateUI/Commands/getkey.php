@@ -15,8 +15,6 @@ use pocketmine\Player;
 
 class getkey extends Command{
 
-	private $plugin;
-
     public function __construct($name){
          parent::__construct(
         $name
@@ -36,7 +34,6 @@ class getkey extends Command{
         $rarename = Item::get(131,3,1);
         $mythicname = Item::get(131,4,1);
         $legendaryname = Item::get(131,5,1);
-        $prefix = $this->plugin->cfg->get("Prefix");
         $e = Enchantment::getEnchantment(0);
         if (count($args) < 1){
             $sender->sendMessage("§b===>§eKeys§b<===");
@@ -56,7 +53,7 @@ class getkey extends Command{
             $commonname->addEnchantment($e);
             $commonname->setCustomName("§aCommon");
             $inv->addItem($commonname);
-            $sender->sendMessage($prefix . "§eYou receive §aCommon §eKey.");
+            $sender->sendMessage("§eYou receive §aCommon §eKey.");
             break;
             case "2":
             case "vote":
