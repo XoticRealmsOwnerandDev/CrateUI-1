@@ -31,23 +31,37 @@ use pocketmine\event\server\DataPacketReceiveEvent;
 
 use pocketmine\network\mcpe\protocol\ModalFormResponsePacket;
 
+use CrateUI\Commands\CommandManager;
+
 class Main extends PluginBase implements Listener{
 
 	public $formCount = 0;
 
 	public $forms = [];
 
+	private static $instance;
+
+	public static function getInstance(): Main{
+		return self::$instance;
+	}
+
 	public function onEnable(){
+		self::$instance = $this;
 		$this->saveDefaultConfig();
 		$this->cfg = $this->getConfig();
-		$this->getServer()->getPluginManager()->registerEvents($this, $this);
-		$this->getServer()->getCommandMap()->register("getkey", new Commands\getkey());
+	 	$this->getServer()->getPluginManager()->registerEvents($this, $this);
+	 	$this->registerManager();
 		$this->getLogger()->info("§aEnabled.");
 	}
 
 	public function onDisable(){
 	    $this->getLogger()->info("§cDisabled.");
 	}
+
+    private function registerManager(){
+                    /////////////////////////////// MANAGER ///////////////////////////////
+        CommandManager::init();
+    }
 
 	public function createCustomForm(callable $function = null) : CustomForm {
 		$this->formCount++;
